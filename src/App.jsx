@@ -2,13 +2,6 @@ import './App.css';
 import * as React from 'react';
 import { Container, Box, InputBase, Card, CardContent, CardActions, Button, Typography} from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
-// import Card from '@mui/material/Card';
-// import CardActions from '@mui/material/CardActions';
-// import CardContent from '@mui/material/CardContent';
-// import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
-
-
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -66,7 +59,7 @@ function App() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          
+
           <Card sx={{ maxWidth: 275 }}>
             <CardContent>
               <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
