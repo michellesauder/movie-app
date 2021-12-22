@@ -2,6 +2,14 @@ import './App.css';
 import * as React from 'react';
 import { Container, Box, InputBase, Card, CardContent, CardActions, Button, Typography} from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
+import Axios from 'axios';
+import { connect, useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { setTheMovie } from './actions/movieActions';
+// import getMovieData from './api/movies';
+
+const API_KEY = '&i=tt3896198&apikey=dacccf9b';
+const API = "http://www.omdbapi.com/?t=";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -45,36 +53,62 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function App() {
+function App(props) {
+  const [loading, setLoading] = useState(true);
+  const [title, setTitle] = useState('');
+  const [movie, setMovie] = useState([]);
+  console.log(movie)
+  
+  const dispatch = useDispatch() 
+
+  useEffect(() => setTitle(''), []);
+
+  const handleMovie = () => {
+    Axios.get(API + title + API_KEY).then((response) => {
+        setMovie(response.data);
+        dispatch(setTheMovie(response.data));
+      })        
+      .catch((err) => {
+        console.log('err', err)
+    })
+  };
+
   return (<>
       <Container maxWidth="lg">
         <Box sx={{ bgcolor: '#cfe8fc', height: '100vh', width:'100%', display: 'flex', flexDirection: 'column' }} >
           <h1>Movie App</h1>
           <Search>
             <SearchIconWrapper>
-              {/* <SearchIcon /> */}
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search your favorite movies…"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={event => setTitle(event.target.value)}
             />
           </Search>
-
+          <Button 
+            variant="contained" 
+            onClick={handleMovie}
+            >
+              Search
+            </Button>
+          {/* results container */}
           <Card sx={{ maxWidth: 275 }}>
             <CardContent>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                Word of the Day
+              {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                {movie.Title}
               </Typography>
               <Typography variant="h5" component="div">
-              </Typography>
+                {movie.Year}
+              </Typography> */}
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
+                {movie.Title}
               </Typography>
               <Typography variant="body2">
-                well meaning and kindly.
+                  {movie.Year}
                 <br />
-                {'"a benevolent smile"'}
               </Typography>
+              <img src={movie.Poster}/>
             </CardContent>
             <CardActions>
               <Button size="small">Learn More</Button>
@@ -86,4 +120,10 @@ function App() {
  </> );
 }
 
-export default App;
+const mapStateToProps = ( state ) => {
+  return {
+    movies:state.movies
+  }
+}
+
+export default connect(mapStateToProps)(App);
