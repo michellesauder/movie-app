@@ -87,7 +87,7 @@ function App(props) {
 
   return (<>
       <Container maxWidth="lg">
-        <Box sx={{ bgcolor: '', minHeight: '100vh', width:'100%', display: 'flex', flexDirection: 'column' }} >
+        <Box sx={{ bgcolor: '', minHeight: '100vh', width:'100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}} >
           <h1>Movie App</h1>
           <Search>
             <SearchIconWrapper>
@@ -99,27 +99,6 @@ function App(props) {
               onChange={event => setTitle(event.target.value)}
             />
           </Search>
-          {/* <Button 
-            variant="contained" 
-            onClick={handleMovie}
-            >
-              Search
-            </Button> */}
-          {/* single results container */}
-            {/* {movie.Title ? <Card sx={{ maxWidth: 275 }}>
-              <CardContent>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  {movie.Title}
-                </Typography>
-                <Typography variant="body2">
-                    {movie.Year}
-                </Typography>
-                <img src={movie.Poster} alt=""/>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Learn More</Button>
-              </CardActions>
-            </Card> : ''} */}
             <Movies movies={movies}/>
           </Box>
           <div>
