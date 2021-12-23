@@ -1,3 +1,9 @@
 h1{
   text-align: center;
 }
+
+.movies {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: wrap;
+}

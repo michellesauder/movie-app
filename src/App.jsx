@@ -6,10 +6,11 @@ import Axios from 'axios';
 import { connect, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { setTheMovie } from './actions/movieActions';
-// import getMovieData from './api/movies';
+import SearchIcon from '@mui/icons-material/Search';
+// import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 const API_KEY = '&i=tt3896198&apikey=dacccf9b';
-const API = "http://www.omdbapi.com/?t=";
+const API = "http://www.omdbapi.com/";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -40,7 +41,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '50%',
@@ -57,15 +57,26 @@ function App(props) {
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState('');
   const [movie, setMovie] = useState([]);
-  console.log(movie)
+  const [movies, setMovies] = useState([]);
   
   const dispatch = useDispatch() 
 
-  useEffect(() => setTitle(''), []);
+  const getMovies = () => {
+    Axios.get(API + '?s={' + title + '}' + API_KEY).then((response) => {
+      console.log(response.data.Search);
+        setMovies(response.data.Search);
+      })        
+      .catch((err) => {
+        console.log('err', err)
+    })
+  };
 
+  useEffect(() => getMovies(), [title]);
+  
   const handleMovie = () => {
-    Axios.get(API + title + API_KEY).then((response) => {
-        setMovie(response.data);
+    Axios.get(API + '?t='+ title + API_KEY).then((response) => {
+        setMovie(response.data.Search);
+        console.log(response.data.Search)
         dispatch(setTheMovie(response.data));
       })        
       .catch((err) => {
@@ -79,6 +90,7 @@ function App(props) {
           <h1>Movie App</h1>
           <Search>
             <SearchIconWrapper>
+              <SearchIcon/>
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search your favorite movies…"
@@ -86,37 +98,51 @@ function App(props) {
               onChange={event => setTitle(event.target.value)}
             />
           </Search>
-          <Button 
+          {/* <Button 
             variant="contained" 
             onClick={handleMovie}
             >
               Search
-            </Button>
-          {/* results container */}
-          <Card sx={{ maxWidth: 275 }}>
+            </Button> */}
+          {/* single results container */}
+          {/* {movie.Title ? <Card sx={{ maxWidth: 275 }}>
             <CardContent>
-              {/* <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                {movie.Title}
-              </Typography>
-              <Typography variant="h5" component="div">
-                {movie.Year}
-              </Typography> */}
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
                 {movie.Title}
               </Typography>
               <Typography variant="body2">
                   {movie.Year}
-                <br />
               </Typography>
-              <img src={movie.Poster}/>
+              <img src={movie.Poster} alt=""/>
             </CardContent>
             <CardActions>
               <Button size="small">Learn More</Button>
             </CardActions>
-          </Card>
-        </Box>
-      </Container>
+          </Card> : ''} */}
 
+        {/* all movie search */}
+          {<div className="movies">
+              {movies ? movies.map((movie, index) => (<div>
+                <Card sx={{ maxWidth: 275 }}>
+                  <CardContent>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                      {movie.Title}
+                    </Typography>
+                    <Typography variant="body2">
+                        {movie.Year}
+                    </Typography>
+                    <img src={movie.Poster} alt=""/>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small">Learn More</Button>
+                  </CardActions>
+                </Card>
+              </div>)) : ''}
+            </div>}
+          </Box>
+          <div>
+        </div>
+      </Container>
  </> );
 }
 
