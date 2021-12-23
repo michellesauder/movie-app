@@ -7,7 +7,7 @@ import { connect, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { setTheMovie } from './actions/movieActions';
 import SearchIcon from '@mui/icons-material/Search';
-// import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import Movies from '../src/movies';
 
 const API_KEY = '&i=tt3896198&apikey=dacccf9b';
 const API = "http://www.omdbapi.com/";
@@ -72,11 +72,10 @@ function App(props) {
   };
 
   useEffect(() => getMovies(), [title]);
-  
+
   const handleMovie = () => {
     Axios.get(API + '?t='+ title + API_KEY).then((response) => {
         setMovie(response.data.Search);
-        console.log(response.data.Search)
         dispatch(setTheMovie(response.data));
       })        
       .catch((err) => {
@@ -86,7 +85,7 @@ function App(props) {
 
   return (<>
       <Container maxWidth="lg">
-        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh', width:'100%', display: 'flex', flexDirection: 'column' }} >
+        <Box sx={{ bgcolor: '', minHeight: '100vh', width:'100%', display: 'flex', flexDirection: 'column' }} >
           <h1>Movie App</h1>
           <Search>
             <SearchIconWrapper>
@@ -121,7 +120,7 @@ function App(props) {
           </Card> : ''} */}
 
         {/* all movie search */}
-          {<div className="movies">
+          {/* {<div className="movies">
               {movies ? movies.map((movie, index) => (<div>
                 <Card sx={{ maxWidth: 275 }}>
                   <CardContent>
@@ -138,7 +137,8 @@ function App(props) {
                   </CardActions>
                 </Card>
               </div>)) : ''}
-            </div>}
+            </div>} */}
+            <Movies movies={movies}/>
           </Box>
           <div>
         </div>

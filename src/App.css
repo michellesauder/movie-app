@@ -1,9 +1,27 @@
-h1{
-  text-align: center;
+h1 { 
+  color: #ffffff; 
+  font-family: 'Raleway',
+  sans-serif; 
+  font-size: 62px; 
+  font-weight: 800; 
+  line-height: 72px; 
+  margin: 0 0 24px; 
+  text-align: center; 
+  text-transform: uppercase; 
+  margin: 10px;
 }
 
 .movies {
   display: flex;
   justify-content: space-around;
   flex-flow: wrap;
+  margin: 20px;
+}
+
+img {
+  height: auto; 
+  width: auto; 
+  max-width: 300px; 
+  height: 300px;
+  object-fit: contain;
 }
