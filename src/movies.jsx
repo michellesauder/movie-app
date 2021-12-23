@@ -5,7 +5,7 @@ import { Container, Box, InputBase, Card, CardContent, CardActions, Button, Typo
 function Movies(props) {
     return (<div className="movies">
               {props.movies ? props.movies.map((movie, index) => (<div>
-                <Card sx={{ maxWidth: 275, marginTop: 20 }}>
+                <Card sx={{ maxWidth: 275, marginTop: 20, display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
                   <CardContent>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                       {movie.Title}

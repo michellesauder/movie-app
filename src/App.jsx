@@ -19,11 +19,13 @@ const Search = styled('div')(({ theme }) => ({
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
+  alignItems: 'center',
+  display: 'flex',
   marginLeft: 0,
   width: '50%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(1),
-    width: 'auto',
+    width: '50%',
   },
 }));
 
@@ -104,40 +106,20 @@ function App(props) {
               Search
             </Button> */}
           {/* single results container */}
-          {/* {movie.Title ? <Card sx={{ maxWidth: 275 }}>
-            <CardContent>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                {movie.Title}
-              </Typography>
-              <Typography variant="body2">
-                  {movie.Year}
-              </Typography>
-              <img src={movie.Poster} alt=""/>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card> : ''} */}
-
-        {/* all movie search */}
-          {/* {<div className="movies">
-              {movies ? movies.map((movie, index) => (<div>
-                <Card sx={{ maxWidth: 275 }}>
-                  <CardContent>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      {movie.Title}
-                    </Typography>
-                    <Typography variant="body2">
-                        {movie.Year}
-                    </Typography>
-                    <img src={movie.Poster} alt=""/>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">Learn More</Button>
-                  </CardActions>
-                </Card>
-              </div>)) : ''}
-            </div>} */}
+            {/* {movie.Title ? <Card sx={{ maxWidth: 275 }}>
+              <CardContent>
+                <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                  {movie.Title}
+                </Typography>
+                <Typography variant="body2">
+                    {movie.Year}
+                </Typography>
+                <img src={movie.Poster} alt=""/>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card> : ''} */}
             <Movies movies={movies}/>
           </Box>
           <div>
