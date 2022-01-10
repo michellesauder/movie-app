@@ -1,6 +1,6 @@
 import './App.css';
 import * as React from 'react';
-import { Container, Box, InputBase} from '@mui/material';
+import { Container, Box, InputBase, Button} from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import Axios from 'axios';
 import { connect, useDispatch } from 'react-redux';
@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { setTheMovie } from './actions/movieActions';
 import SearchIcon from '@mui/icons-material/Search';
 import Movies from '../src/movies';
+import Type from '../src/Type';
 
 const API_KEY = '&i=tt3896198&apikey=dacccf9b';
 const API = "http://www.omdbapi.com/";
@@ -60,10 +61,11 @@ function App(props) {
   const [movie, setMovie] = useState([]);
   const [movies, setMovies] = useState([]);
   
-  const dispatch = useDispatch() 
+  // const dispatch = useDispatch() 
 
   const getMovies = () => {
     Axios.get(API + '?s={' + title + '}' + API_KEY).then((response) => {
+       console.log(response.data.Search);
         setMovies(response.data.Search);
       })        
       .catch((err) => {
@@ -72,16 +74,6 @@ function App(props) {
   };
 
   useEffect(() => getMovies(), [title]);
-
-  // const handleMovie = () => {
-  //   Axios.get(API + '?t='+ title + API_KEY).then((response) => {
-  //       setMovie(response.data.Search);
-  //       dispatch(setTheMovie(response.data));
-  //     })        
-  //     .catch((err) => {
-  //       console.log('err', err)
-  //   })
-  // };
 
   return (<>
       <Container maxWidth="lg">
@@ -97,6 +89,7 @@ function App(props) {
               onChange={event => setTitle(event.target.value)}
             />
           </Search>
+          {/* <Type /> */}
             <Movies movies={movies}/>
           </Box>
           <div>
@@ -105,10 +98,10 @@ function App(props) {
  </> );
 }
 
-const mapStateToProps = ( state ) => {
-  return {
-    movies:state.movies
-  }
-}
+// const mapStateToProps = ( state ) => {
+//   return {
+//     movies:state.movies
+//   }
+// }
 
-export default connect(mapStateToProps)(App);
+export default App;
