@@ -3,8 +3,6 @@ import { Container, Box, InputBase, Card, CardContent, CardActions, Button, Typo
 import { useState, useEffect } from 'react';
 import Modal from '@mui/material/Modal';
 
-
-
 const style = {
     position: 'absolute',
     top: '50%',

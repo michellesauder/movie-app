@@ -1,6 +1,6 @@
 import './App.css';
 import * as React from 'react';
-import { Container, Box, InputBase, Card, CardContent, CardActions, Button, Typography} from '@mui/material';
+import { Container, Box, InputBase} from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import Axios from 'axios';
 import { connect, useDispatch } from 'react-redux';
@@ -56,7 +56,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function App(props) {
-  const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState('');
   const [movie, setMovie] = useState([]);
   const [movies, setMovies] = useState([]);
@@ -65,7 +64,6 @@ function App(props) {
 
   const getMovies = () => {
     Axios.get(API + '?s={' + title + '}' + API_KEY).then((response) => {
-      console.log(response.data.Search);
         setMovies(response.data.Search);
       })        
       .catch((err) => {
@@ -75,15 +73,15 @@ function App(props) {
 
   useEffect(() => getMovies(), [title]);
 
-  const handleMovie = () => {
-    Axios.get(API + '?t='+ title + API_KEY).then((response) => {
-        setMovie(response.data.Search);
-        dispatch(setTheMovie(response.data));
-      })        
-      .catch((err) => {
-        console.log('err', err)
-    })
-  };
+  // const handleMovie = () => {
+  //   Axios.get(API + '?t='+ title + API_KEY).then((response) => {
+  //       setMovie(response.data.Search);
+  //       dispatch(setTheMovie(response.data));
+  //     })        
+  //     .catch((err) => {
+  //       console.log('err', err)
+  //   })
+  // };
 
   return (<>
       <Container maxWidth="lg">
