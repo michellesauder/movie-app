@@ -1,6 +1,6 @@
 
 import {  Box, Card, CardContent, CardActions, Button, Typography} from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Modal from '@mui/material/Modal';
 
 const style = {
